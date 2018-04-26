@@ -9,19 +9,19 @@
         <!-- Latest compiled and minified JavaScript BOOTSTRAP -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <!-- Include main css -->
-        <link rel="stylesheet" type="text/css" href="views/common/main.css">
+        <link rel="stylesheet" type="text/css" href="common/main.css">
         <title>My PHP Project</title>
     </head>
     <body>
     <?php
         //Include the common header
-        include("views/common/header.php");
+        include("common/header.php");
 
         //Include body. TO DO: Change include based on page to allow different content and templates
-        include("views/home.php");
+        include("home.php");
 
         //Include the common footer
-        include("views/common/footer.php");
+        include("common/footer.php");
     ?>
     </body>
 </html>

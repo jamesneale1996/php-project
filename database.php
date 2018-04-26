@@ -1,5 +1,5 @@
 <?php
-class Database
+class DatabaseController
 {
     private static $dbName = 'phpproject' ;
     private static $dbHost = 'localhost' ;
@@ -25,7 +25,7 @@ class Database
 
         return self::$cont;
     }
-     
+
     public static function disconnect() {
         self::$cont = null;
     }
