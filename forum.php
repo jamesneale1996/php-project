@@ -1,3 +1,34 @@
+<?php
+
+    if ( isset( $_POST['submit'] ) ) {
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $message = $_POST['message'];
+
+        $db = new PDO('mysql:host=localhost;dbname=phpproject', 'root', '');
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "INSERT INTO tbl_messages (name, email, message) VALUES (:name, :email, :message)";
+
+        $statement = $db->prepare($query);
+        $statement->bindParam(':name', $name);
+        $statement->bindParam(':email', $email);
+        $statement->bindParam(':message', $message);
+        $statement->execute() or die (print_r($statement->errorInfo(), true));
+        $db = null;
+    }
+
+    function read() {
+        $db = new PDO('mysql:host=localhost;dbname=phpproject', 'root', '');
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT * FROM tbl_messages";
+
+        $statement = $db->prepare($query);
+        $statement->execute() or die (print_r($statement->errorInfo(), true));
+        $results = $statement->fetch(PDO::FETCH_ASSOC);
+        return var_dump($results);
+    }
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,11 +41,10 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <!-- Include main css -->
         <link rel="stylesheet" type="text/css" href="common/main.css">
-        <?php include 'database.php'; ?>
         <title>My PHP Project</title>
     </head>
     <body>
-    <?php ForumController::read();?>
+    <?= read(); ?>
     <table class="table">
         <thead>
             <tr>
@@ -51,41 +81,3 @@
     </table>
     </body>
 </html>
-
-<?php
-
-class ForumController
-{
-    public $id;
-    public $email;
-    public $delete;
-
-    public function create()
-    {
-
-    }
-
-    public static function read()
-    {
-        $pdo = DatabaseController::connect();
-        $query = 'SELECT * FROM tbl_questions';
-
-        $results = array();
-        foreach ($pdo->query($query) as $row) {
-            array_push($row, $results);
-        }
-        var_dump($results);
-    }
-
-    public function update()
-    {
-
-    }
-
-    public function delete()
-    {
-
-    }
-}
-
-?>
